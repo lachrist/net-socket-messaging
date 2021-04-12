@@ -3,7 +3,7 @@
 Implementation of a simple messaging protocol on top of `net.Socket`s.
 The protocol is the simplest I could think of:
 - The head consists in 4 bytes which encodes an unsigned 32 int written in little endian.
-- The body is string of byte whose length is defined by the head which encodes an utf8 string.
+- The body is a string of bytes which encodes a string in utf8 and whose length is defined by the head.
 
 ```sh
 npm i net-socket-messaging
