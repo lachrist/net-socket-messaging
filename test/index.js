@@ -2,7 +2,7 @@
 const {strict:Assert} = require("assert");
 const Net = require("net");
 
-const { patch, getMaxByteLength } = require("../lib/index.js");
+const { patch, getMaxMessageLength } = require("../lib/index.js");
 
 const server = new Net.Server();
 
@@ -74,7 +74,7 @@ const iterator = [
   (socket) => {
     patch(socket);
     Assert.throws(
-      () => socket.send("x".repeat(getMaxByteLength() + 1)),
+      () => socket.send("x".repeat(getMaxMessageLength() + 1)),
       /^Error: Cannot send message/),
     socket.send("foo");
     socket.on("readable", () => {

@@ -36,26 +36,20 @@ socket.on("message", (message) => {
 
 ### NetSocketMessaging.getMaxByteLength()
 
-* Returns `<integer>`: the maximum number of utf8 bytes for messages.
+* Returns `<integer>`: the maximum length of messages.
 
 ### `socket.send(message)`
 
 Send a message through the `net.Socket`.
 
 * `message` `<string>`: the message to send.
-  N.B.: the maximum number of utf8 bytes of `message` is not `2^32` (~ 4GiB) but rather `256 * 2^20` (256MiB).
-* Returns `<null>` | `<boolean>`: `null` if the message is too big to send (an `'error'` event is emitted to the socket), and `<boolean>` as per the return value of `new.Socket.write(buffer)`.
+  Sending a string longer than `256 * 2^20` characters will fire an `'error'` event on the socket. There is two motivations for this limit:
+  1. It ensures that the body is under 1GiB (as a single utf16 character may be encoded in as much as 4 bytes). There is two reasons why we want to limit the length of the body. First, the maximum number encoded by the head is `2^32`. Second, the `stream.readable.read(size)` does not accept a `size` argument greater than `2^30`.
+  2. JS engines impose a limit to the length of strings. Although the ECMAScript 2016 specification states that the maximum length of a string is `2^53 - 1`, many engines opted for a smaller limit. A length of `256 * 2^20` is a conservative limit which most JS engines support.
+* Returns `<null>` | `<boolean>`: `null` if the message is too big to be sent and a `<boolean>` as per the return value of `new.Socket.write(buffer)`.
 
 ### Event `'message'`
 
 Emitted when a message has been fully received.
-Receiving a message larger than utf8 256MiB may succeed but it will always trigger an `'error'` event on the socket.
 
-* `message` `<string>`: the received message.
-
-## Rant about the maximum number of bytes in the body
-
-The first restriction is imposed by node: the `net.Socket.read(size)` method does not accept a size greater than `2**30` (1GiB).
-The second restriction is imposed by the ECMAScript 2016 spec: the maximum number of elements of a string is `2^53 - 1`.
-However most JS engines do not follow this requirement.
-To make sure that the protocol can be implemented across a large spectre of JS engines, I chose a the conservative limit of 256MiB.
+* `message` `<string>`: the received message. Neither the length of the body nor the length of the message is checked. If the engine supports it, a message as long as `2^32` characters could be provided.
