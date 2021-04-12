@@ -1,13 +1,13 @@
 {
   "name": "antena",
   "description": "Simple messaging protocol for node's net socket",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": {
     "name": "Laurent Christophe",
     "email": "lachrist@vub.ac.be"
   },
   "scripts": {
-    "test": "npx c8 --reporter=html --require lib/main.js node test/unit.js ; open coverage/index.html"
+    "test": "NODE_DEBUG=net-socket-messaging npx c8 --reporter=html --require lib/main.js node test/run.js ; open coverage/index.html"
   },
   "repository": "lachrist/net-socket-messaging",
   "license": "MIT",
