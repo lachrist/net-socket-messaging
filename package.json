@@ -6,6 +6,7 @@
     "name": "Laurent Christophe",
     "email": "lachrist@vub.ac.be"
   },
+  "main": "lib/main.js",
   "scripts": {
     "test": "NODE_DEBUG=net-socket-messaging npx c8 --reporter=html --require lib/main.js node test/run.js ; open coverage/index.html"
   },
