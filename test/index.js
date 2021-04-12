@@ -2,11 +2,11 @@
 const {strict:Assert} = require("assert");
 const Net = require("net");
 
-const { registerSocket, getMaxByteLength } = require("../lib/main.js");
+const { patch, getMaxByteLength } = require("../lib/index.js");
 
 const server = new Net.Server();
 
-server.on("error", () => {
+server.on("error", (error) => {
   console.log("Server error:", error.message);
 });
 
@@ -19,7 +19,7 @@ let counter = 0;
 server.on("connection", (socket) => {
   console.log("Server connection");
   counter += 1;
-  registerSocket(socket);
+  patch(socket);
   socket.on("message", (message) => {
     console.log("Server socket received:", message);
     socket.send("bar");
@@ -72,10 +72,10 @@ const next = () => {
 
 const iterator = [
   (socket) => {
-    registerSocket(socket);
+    patch(socket);
     Assert.throws(
       () => socket.send("x".repeat(getMaxByteLength() + 1)),
-      /^Error: The message byte length is too large/),
+      /^Error: Cannot send message/),
     socket.send("foo");
     socket.on("readable", () => {
       socket.on("message", (message) => {

@@ -1,14 +1,14 @@
 {
   "name": "net-socket-messaging",
   "description": "Simple messaging protocol for node's net socket",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": {
     "name": "Laurent Christophe",
     "email": "lachrist@vub.ac.be"
   },
-  "main": "lib/main.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "NODE_DEBUG=net-socket-messaging npx c8 --reporter=html --require lib/main.js node test/run.js ; open coverage/index.html"
+    "test": "NODE_DEBUG=net-socket-messaging npx c8 --reporter=html --require lib/index.js node test/index.js ; open coverage/index.html"
   },
   "repository": "lachrist/net-socket-messaging",
   "license": "MIT",
