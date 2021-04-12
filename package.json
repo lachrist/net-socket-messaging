@@ -13,11 +13,12 @@
   "repository": "lachrist/net-socket-messaging",
   "license": "MIT",
   "keywords": [
-    "Request",
-    "Connect",
-    "Http",
-    "WebSocket",
-    "Upgrade"
+    "Node",
+    "Net",
+    "Socket",
+    "Asynchronous",
+    "Messaging",
+    "Communication"
   ],
   "devDependencies": {
     "c8": "^7.7.1"
