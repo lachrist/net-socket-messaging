@@ -24,7 +24,7 @@ server.on("connection", (socket) => {
     console.log("Server socket received:", message);
     socket.send("bar");
   });
-  socket.on("error", () => {
+  socket.on("error", (error) => {
     console.log("Server socket error:", error.message);
     throw error;
   });
