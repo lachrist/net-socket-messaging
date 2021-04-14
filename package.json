@@ -1,7 +1,7 @@
 {
   "name": "net-socket-messaging",
   "description": "Simple messaging protocol for node's net socket",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": {
     "name": "Laurent Christophe",
     "email": "lachrist@vub.ac.be"

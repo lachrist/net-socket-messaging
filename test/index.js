@@ -75,7 +75,7 @@ const iterator = [
     patch(socket);
     Assert.throws(
       () => socket.send("x".repeat(getMaxMessageLength() + 1)),
-      /^Error: Cannot send message/),
+      /^Error: Message too large/),
     socket.send("foo");
     socket.on("readable", () => {
       socket.on("message", (message) => {
